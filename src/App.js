@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import {Course} from "./components/Course";
+import {CreateCourse} from './components/CreateCourse'
+import {BytesNavbar} from "./components/BytesNavbar";
+import 'font-awesome/css/font-awesome.css'
+import {Landing} from "./components/Landing";
 
-function App() {
+
+const COURSE = {
+    title: "",
+    steps: []
+};
+
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" style={{fontFamily: "GothamRounded-Medium", height: "100%"}}>
+        <BytesNavbar />
+        <div style={{ backgroundColor: "rgb(95, 207, 128)", height: "calc(100% - 84px)" }}>
+          <CreateCourse course={COURSE} />
+        </div>
+
     </div>
   );
-}
+};
+
 
 export default App;
+//            <CreateCourse course={COURSE} />
+{/*<div style={{ backgroundColor: "rgb(95, 207, 128)", height: "calc(100% - 84px)" }}>*/}
+
+          {/*</div>*/}
