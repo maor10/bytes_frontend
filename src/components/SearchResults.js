@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import 'brace/theme/monokai';
 import {Input} from "reactstrap";
 
 
@@ -7,7 +8,7 @@ export class Timeline extends Component {
     styles = {
         circle: {
             width: "20px", height: "20px", borderRadius: "50%", backgroundColor: "white",
-            border: "1px solid rgb(58, 193, 98)", marginTop: "-8px", cursor: "pointer"
+            border: "1px solid rgb(58, 193, 98)", marginTop: "-8px"
         }
     };
 
@@ -21,9 +22,8 @@ export class Timeline extends Component {
                 {
                     this.props.steps.map((step, i) => <div>
 
-                            <div style={{display: "flex", justifyContent: "center"}}
-                                 onClick={() => this.props.onSelectStep(step)}>
-                                <div  style={this.styles.circle}/>
+                            <div style={{display: "flex", justifyContent: "center"}}>
+                                <div style={this.styles.circle}/>
                             </div>
                             <div style={{
                                 color: "white",

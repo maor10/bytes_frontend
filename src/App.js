@@ -17,7 +17,13 @@ const COURSE = {
 class App extends Component {
 
     state = {
-        page: "view"
+        page: "landing"
+    };
+
+    onCreateCourse = () => {
+        this.setState({
+           page: "create"
+        });
     };
 
     render() {
@@ -38,6 +44,7 @@ class App extends Component {
                                 return <div style={{backgroundColor: "rgb(95, 207, 128)", height: "100%"}}>
                                     <Landing onCreate={() => this.setState({page: "create"})}
                                              onView={() => this.setState({page: "view"})}
+                                             onCreateCourse={this.onCreateCourse}
                                     />
                                 </div>;
                             case 'view':
@@ -45,6 +52,13 @@ class App extends Component {
                                     <BytesNavbar />
                                     <div style={{backgroundColor: "rgb(95, 207, 128)", height: "calc(100% - 84px)"}}>
                                         <Course />
+                                    </div>
+                                </div>;
+                            case 'search':
+                                return <div style={{height: "100%"}}>
+                                    <BytesNavbar />
+                                    <div style={{backgroundColor: "rgb(95, 207, 128)", height: "calc(100% - 84px)"}}>
+                                        {/*<SearchResults/>*/}
                                     </div>
                                 </div>;
                             default:

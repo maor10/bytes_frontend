@@ -150,6 +150,12 @@ export class CreateCourse extends Component {
         })*/
     };
 
+    onSelectStep = (step) => {
+        this.setState({
+            currentStep: step
+        })
+    };
+
     render() {
 
         return <div style={{marginLeft: "50px", marginRight: "50px", marginTop: "5px", height: "50%"}}>
@@ -168,7 +174,7 @@ export class CreateCourse extends Component {
                         </div>
                     </div> : <div>
                     <Timeline editable={true} steps={this.state.course.steps}
-                              onChangeName={this.handleChangeName}/>
+                              onChangeName={this.handleChangeName} onSelectStep={this.onSelectStep}/>
                     <Card style={{
                         backgroundColor: "white", height: "800px", width: "70%", margin: "100px auto", color: "black",
 
