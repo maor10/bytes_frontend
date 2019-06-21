@@ -37,7 +37,7 @@ export class ViewExercise extends Component {
           console.log(response.data);
           console.log(this.props.step.expected_stdout);
           if (response.data === this.props.step.expected_stdout) {
-              swal("Good job!", "You printed Hello World!", "success");
+              swal("Good job!", `You printed ${this.props.step.expected_stdout}!`, "success");
           }
       })
     };
