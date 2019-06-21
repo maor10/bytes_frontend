@@ -6,7 +6,7 @@ import {CreateCourse} from './components/CreateCourse'
 import {BytesNavbar} from "./components/BytesNavbar";
 import 'font-awesome/css/font-awesome.css'
 import {Landing} from "./components/Landing";
-
+import {SearchResults} from "./components/SearchResults";
 
 const COURSE = {
     title: "",
@@ -17,14 +17,33 @@ const COURSE = {
 class App extends Component {
 
     state = {
-        page: "landing"
+        page: "landing",
+        query: '',
+        courseId: 1
     };
 
     onCreateCourse = () => {
         this.setState({
-           page: "create"
+            page: "create"
         });
     };
+
+    onSearch = () => {
+        this.setState({
+            page: "search"
+        });
+    };
+
+    onView = courseId => {
+        this.setState({
+            courseId: courseId,
+            page: "view"
+        });
+    };
+
+    onQueryChange(e) {
+        this.setState({query: e.target.value});
+    }
 
     render() {
         const page = this.state.page;
@@ -35,7 +54,7 @@ class App extends Component {
                         switch (page) {
                             case 'create':
                                 return <div style={{height: "100%"}}>
-                                    <BytesNavbar />
+                                    <BytesNavbar/>
                                     <div style={{backgroundColor: "rgb(95, 207, 128)", height: "calc(100% - 84px)"}}>
                                         <CreateCourse course={COURSE}/>
                                     </div>
@@ -45,20 +64,22 @@ class App extends Component {
                                     <Landing onCreate={() => this.setState({page: "create"})}
                                              onView={() => this.setState({page: "view"})}
                                              onCreateCourse={this.onCreateCourse}
+                                             onQueryChange={e => this.onQueryChange(e)}
+                                             onSearch={() => this.onSearch()}
                                     />
                                 </div>;
                             case 'view':
                                 return <div style={{height: "100%"}}>
-                                    <BytesNavbar />
+                                    <BytesNavbar/>
                                     <div style={{backgroundColor: "rgb(95, 207, 128)", height: "calc(100% - 84px)"}}>
-                                        <Course />
+                                        <Course courseId={this.state.courseId}/>
                                     </div>
                                 </div>;
                             case 'search':
                                 return <div style={{height: "100%"}}>
-                                    <BytesNavbar />
+                                    <BytesNavbar/>
                                     <div style={{backgroundColor: "rgb(95, 207, 128)", height: "calc(100% - 84px)"}}>
-                                        {/*<SearchResults/>*/}
+                                        <SearchResults query={this.state.query} onView={courseId => this.onView(courseId)}/>
                                     </div>
                                 </div>;
                             default:
@@ -75,7 +96,3 @@ class App extends Component {
 
 
 export default App;
-//            <CreateCourse course={COURSE} />
-{/*<div style={{ backgroundColor: "rgb(95, 207, 128)", height: "calc(100% - 84px)" }}>*/}
-
-          {/*</div>*/}

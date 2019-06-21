@@ -1,49 +1,36 @@
 import React, {Component} from 'react'
-import 'brace/theme/monokai';
-import {Input} from "reactstrap";
+import {get} from "../actions";
+import {Card, CardBody, CardTitle, CardHeader, CardText, Button} from "reactstrap";
 
 
-export class Timeline extends Component {
-
-    styles = {
-        circle: {
-            width: "20px", height: "20px", borderRadius: "50%", backgroundColor: "white",
-            border: "1px solid rgb(58, 193, 98)", marginTop: "-8px"
-        }
+export class SearchResults extends Component {
+    state = {
+        results: []
     };
 
+    componentDidMount() {
+        get(`/courses/search/${this.props.query}`).then((response) => {
+            this.setState({
+                results: response.data,
+            });
+        });
+    }
+
     render() {
-        console.log(this.props.steps);
-        return <div style={{marginTop: "50px"}}>
-            <div style={{
-                width: "100%", backgroundColor: "rgb(58, 193, 98)", height: "2px",
-                display: "flex", justifyContent: "space-between"
-            }}>
-                {
-                    this.props.steps.map((step, i) => <div>
-
-                            <div style={{display: "flex", justifyContent: "center"}}>
-                                <div style={this.styles.circle}/>
-                            </div>
-                            <div style={{
-                                color: "white",
-                                marginTop: "5px",
-                                fontSize: i === 0 ? "20pt" : "10pt"
-                            }}>
-                                {
-                                    this.props.editable ?
-                                        <Input value={step.text} placeholder="Step name here" onChange={
-                                            (e) => this.props.onChangeName(i, step.index, e.target.value)
-                                        } />:
-                                        step.text
-                                }
-                            </div>
-                        </div>
-                    )
-                }
-
-            </div>
-
+        return <div style={{padding: "13px", textAlign: 'left', display: 'flex'}}>
+            {
+                this.state.results.map((result, i) => <div key={i} style={{padding: '12px'}}>
+                        <Card>
+                            <CardHeader>{result.name}</CardHeader>
+                            <CardBody>
+                                <CardTitle>{result.num_students} enrolling</CardTitle>
+                                <CardText>This is the course's description</CardText>
+                                <Button color="primary" onClick={() => this.props.onView(result.id)}>Enroll</Button>
+                            </CardBody>
+                        </Card>
+                    </div>
+                )
+            }
         </div>;
     }
 }
