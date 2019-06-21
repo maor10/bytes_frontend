@@ -189,14 +189,18 @@ export class CreateCourse extends Component {
         })
     };
 
+    onChangeCourseName(e){
+        post(`/courses/${this.state.course.id}/edit`, {edit: {name: e.target.value}});
+    }
+
     render() {
 
         return <div style={{marginLeft: "50px", marginRight: "50px", marginTop: "5px", height: "50%"}}>
             <div style={{paddingTop: "50px"}}>
-                <Input placeholder="Name of course" style={{
+                <Input placeholder="Course name" style={{
                     fontSize: "20pt", height: "80px", width: "20%",
                     backgroundColor: "rgba(0,0,0,0)", color: "white", border: "0px"
-                }}/>
+                }} onChange={e => this.onChangeCourseName(e)}/>
             </div>
             {
                 this.state.course.steps.length === 0 ?

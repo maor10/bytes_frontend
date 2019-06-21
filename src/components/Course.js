@@ -10,6 +10,7 @@ import {ViewExercise} from "./ViewExercise";
 export class Course extends Component {
     state = {
         course: {
+            name: '',
             steps: []
         },
         currentStep: {
@@ -40,7 +41,7 @@ export class Course extends Component {
             this.setState({
                 course: {
                     id: id,
-                    title: response.data.name,
+                    name: response.data.name,
                     steps: response.data.steps
                 },
                 currentStep: response.data.steps[0]
@@ -56,7 +57,7 @@ export class Course extends Component {
 
     render() {
         return <div style={{marginLeft: "50px", marginRight: "50px", marginTop: "5px"}}>
-                <h3 style={this.styles.courseTitle}>Python 101</h3>
+                <h3 style={this.styles.courseTitle}>{this.state.course.name}</h3>
                 <Timeline currentStep={this.state.currentStep} steps={this.state.course.steps} onSelectStep={this.onSelectStep} />
 
                 <Card style={{backgroundColor: "white",
