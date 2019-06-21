@@ -7,6 +7,7 @@ import {BytesNavbar} from "./components/BytesNavbar";
 import 'font-awesome/css/font-awesome.css'
 import {Landing} from "./components/Landing";
 import {SearchResults} from "./components/SearchResults";
+import {post} from "./actions";
 
 const COURSE = {
     title: "",
@@ -23,8 +24,11 @@ class App extends Component {
     };
 
     onCreateCourse = () => {
-        this.setState({
-            page: "create"
+        post('/courses/create', {}).then(response => {
+            this.setState({
+                page: "create",
+                courseId: response.data.id
+            });
         });
     };
 
@@ -56,7 +60,7 @@ class App extends Component {
                                 return <div style={{height: "100%"}}>
                                     <BytesNavbar/>
                                     <div style={{backgroundColor: "rgb(95, 207, 128)", height: "calc(100% - 84px)"}}>
-                                        <CreateCourse course={COURSE}/>
+                                        <CreateCourse course={COURSE} courseId={this.state.courseId}/>
                                     </div>
                                 </div>;
                             case 'landing':
@@ -79,7 +83,8 @@ class App extends Component {
                                 return <div style={{height: "100%"}}>
                                     <BytesNavbar/>
                                     <div style={{backgroundColor: "rgb(95, 207, 128)", height: "calc(100% - 84px)"}}>
-                                        <SearchResults query={this.state.query} onView={courseId => this.onView(courseId)}/>
+                                        <SearchResults query={this.state.query}
+                                                       onView={courseId => this.onView(courseId)}/>
                                     </div>
                                 </div>;
                             default:

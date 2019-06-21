@@ -14,8 +14,8 @@ export class DisplayIframe extends Component {
             <h2 style={{textAlign: "left"}} >
                 <div dangerouslySetInnerHTML={{ __html: this.props.step.description }} />
             </h2>
-            <iframe style={{marginTop: "10px"}} width="100%"
-                    height="521" src={this.props.step.iframe_url} />
+            <iframe style={{marginTop: "10px", width: "100%", height: "-webkit-fill-available"}}
+                    src={this.props.step.iframe_url} />
         </div>;
     }
 }

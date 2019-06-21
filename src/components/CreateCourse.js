@@ -20,11 +20,11 @@ export class CreateCourse extends Component {
     };
 
     componentDidMount() {
-        this.getCourse(this.state.course.id);
+        this.getCourse(this.props.courseId);
     }
 
     editStep = (index, data) => {
-        post(`/courses/${this.state.course.id}/steps/${index}/edit`, {edit: data}).then(() => {
+        post(`/courses/${this.props.courseId}/steps/${index}/edit`, {edit: data}).then(() => {
 
         });
     };
@@ -46,7 +46,7 @@ export class CreateCourse extends Component {
     };
 
     addStep = (type) => {
-        post(`/courses/${this.state.course.id}/steps/create`, {type: type}).then((response) => {
+        post(`/courses/${this.props.courseId}/steps/create`, {type: type}).then((response) => {
             const steps = this.state.course.steps;
             const step = {
                 index: response.data.index,
@@ -190,7 +190,7 @@ export class CreateCourse extends Component {
     };
 
     onChangeCourseName(e){
-        post(`/courses/${this.state.course.id}/edit`, {edit: {name: e.target.value}});
+        post(`/courses/${this.props.courseId}/edit`, {edit: {name: e.target.value}});
     }
 
     render() {
