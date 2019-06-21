@@ -19,7 +19,7 @@ export class SearchResults extends Component {
     render() {
         return <div style={{padding: "13px", textAlign: 'left', display: 'flex'}}>
             {
-                this.state.results.map((result) => <div style={{padding: '12px'}}>
+                this.state.results.map((result, i) => <div key={i} style={{padding: '12px'}}>
                         <Card>
                             <CardHeader>{result.name}</CardHeader>
                             <CardBody>
