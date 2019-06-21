@@ -13,6 +13,7 @@ import {Button as BootstrapButton} from "reactstrap";
 import {post} from "../actions";
 
 import SweetAlert from 'sweetalert2-react';
+import swal from 'sweetalert';
 
 
 
@@ -31,10 +32,12 @@ export class ViewExercise extends Component {
 
     executeCode = () => {
       post("/exec", {
-          code: this.state.code
+          code: this.state.code === null ? this.props.step.boilerplate : this.state.code
       }).then((response) => {
+          console.log(response.data);
+          console.log(this.props.step.expected_stdout);
           if (response.data === this.props.step.expected_stdout) {
-
+              swal("Good job!", "You printed Hello World!", "success");
           }
       })
     };
@@ -59,7 +62,7 @@ export class ViewExercise extends Component {
                 showPrintMargin={true}
                 showGutter={true}
                 highlightActiveLine={true}
-                value={this.state.code === null ? this.state.code : this.props.step.boilerplate}
+                value={this.state.code === null ? this.props.step.boilerplate : this.state.code}
                 setOptions={{
                     enableBasicAutocompletion: false,
                     enableLiveAutocompletion: false,
@@ -69,11 +72,11 @@ export class ViewExercise extends Component {
                 }}
             />
             <div style={{display: "flex", marginTop: "10px"}}>
-                <BootstrapButton color="success" onClick={this.executeCode}>Run</BootstrapButton>
+                <BootstrapButton color="success" onClick={() => this.executeCode()}>Run</BootstrapButton>
             </div>
             <SweetAlert
                 show={this.state.showAlert}
-                title="Demo"
+                title="Good job!"
                 text="SweetAlert in React"
                 onConfirm={() => this.setState({ showAlert: false })}
               />
