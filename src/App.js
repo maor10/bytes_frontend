@@ -17,13 +17,19 @@ const COURSE = {
 class App extends Component {
 
     state = {
-        page: "search",
+        page: "landing",
         query: ''
     };
 
     onCreateCourse = () => {
         this.setState({
             page: "create"
+        });
+    };
+
+    onSearch = () => {
+        this.setState({
+            page: "search"
         });
     };
 
@@ -49,7 +55,8 @@ class App extends Component {
                                 return <div style={{backgroundColor: "rgb(95, 207, 128)", height: "100%"}}>
                                     <Landing onCreate={() => this.setState({page: "create"})}
                                              onView={() => this.setState({page: "view"})}
-                                             onCreateCourse={this.onCreateCourse} onQueryChange={this.onQueryChange}
+                                             onCreateCourse={this.onCreateCourse} onQueryChange={e => this.onQueryChange(e)}
+                                             onSearch={() => this.onSearch()}
                                     />
                                 </div>;
                             case 'view':
