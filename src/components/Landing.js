@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
 import {Button, Card, CardBody, CardHeader, Input} from "reactstrap";
-import AceEditor from 'react-ace';
-import 'brace/theme/monokai';
 import {Timeline} from "./Timeline";
 import {Logo} from "./Logo";
 import CleanUp from "../images/clean_up.svg"

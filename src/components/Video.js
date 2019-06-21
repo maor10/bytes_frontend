@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import 'brace/theme/monokai';
 import ReactPlayer from 'react-player'
 
 export class Video extends Component {

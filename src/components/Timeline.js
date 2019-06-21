@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import 'brace/theme/monokai';
 import {Input} from "reactstrap";
 
 

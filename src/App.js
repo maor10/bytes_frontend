@@ -17,7 +17,7 @@ const COURSE = {
 class App extends Component {
 
     state = {
-        page: "create"
+        page: "view"
     };
 
     render() {
@@ -37,7 +37,8 @@ class App extends Component {
                             case 'landing':
                                 return <div style={{backgroundColor: "rgb(95, 207, 128)", height: "100%"}}>
                                     <Landing onCreate={() => this.setState({page: "create"})}
-                                             onView={() => this.setState({page: "view"})}/>
+                                             onView={() => this.setState({page: "view"})}
+                                    />
                                 </div>;
                             case 'view':
                                 return <div style={{height: "100%"}}>

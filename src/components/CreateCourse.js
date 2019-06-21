@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
 import {Card, CardBody, CardHeader, Input, Button as BootstrapButton} from "reactstrap";
-import AceEditor from 'react-ace';
-import 'brace/theme/monokai';
 import {Timeline} from "./Timeline";
 import {Container, Button, Link} from 'react-floating-action-button';
 import {AddVideo} from "./AddVideo";
 import {get, post} from "../actions";
+import {AIframe} from "./AIframe";
 
 
 export class CreateCourse extends Component {
@@ -103,8 +102,53 @@ export class CreateCourse extends Component {
             currentStep: newStep
         })
 
-    }
-    ;
+    };
+
+    onChangeUrl = (step, url) => {
+        this.editStep(step.index, {video_url: url});
+        let newStep = null;
+        const steps = this.state.course.steps.map(s => {
+            if (s.index === step.index) {
+                newStep = {
+                    video_url: url,
+                    ...step
+                };
+                return newStep;
+            } else {
+                return step
+            }
+        });
+        this.setState({
+            course: {
+                steps: steps,
+                ...this.state.course
+            },
+            currentStep: newStep
+        })
+    };
+
+    onChangeDescription = (step, description) => {
+       this.editStep(step.index, {description: description});
+      /*  let newStep = null;
+        const steps = this.state.course.steps.map(s => {
+            if (s.index === step.index) {
+                newStep = {
+                    description: description,
+                    ...step
+                };
+                return newStep;
+            } else {
+                return step;
+            }
+        });
+        this.setState({
+            course: {
+                steps: steps,
+                ...this.state.course
+            },
+            currentStep: newStep
+        })*/
+    };
 
     render() {
 
@@ -142,7 +186,12 @@ export class CreateCourse extends Component {
                                                     return <div></div>;
                                                 case 'video':
                                                     return <AddVideo step={this.state.currentStep}
-                                                                     onChangeUrl={this.onChangeVideoUrl}/>;
+                                                                     onChangeUrl={this.onChangeVideoUrl}
+                                                    onChangeDescription={this.onChangeDescription}/>;
+                                                 case 'iframe':
+                                                    return <AIframe step={this.state.currentStep}
+                                                    onChangeDescription={this.onChangeDescription}/>;
+
                                                 default:
                                                     return <div>Oogyboog</div>;
                                             }
@@ -173,7 +222,12 @@ export class CreateCourse extends Component {
                         icon="fa fa-pencil-square"
                         styles={{backgroundColor: "orange", color: "red"}}
                         className="fab-item btn btn-link btn-lg text-white"/>
-
+                    <Button
+                        onClick={() => this.addStep("iframe")}
+                        tooltip="Add Virtual Environment (VM)"
+                        icon="fa fa-desktop"
+                        styles={{backgroundColor: "purple", color: "red"}}
+                        className="fab-item btn btn-link btn-lg text-white"/>
                     <Button
                         icon="fa fa-plus"
                         rotate={true}
