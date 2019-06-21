@@ -6,6 +6,7 @@ import {CreateCourse} from './components/CreateCourse'
 import {BytesNavbar} from "./components/BytesNavbar";
 import 'font-awesome/css/font-awesome.css'
 import {Landing} from "./components/Landing";
+import {SearchResults} from "./components/SearchResults";
 
 
 const COURSE = {
@@ -17,7 +18,7 @@ const COURSE = {
 class App extends Component {
 
     state = {
-        page: "create"
+        page: "landing"
     };
 
     render() {
@@ -44,6 +45,13 @@ class App extends Component {
                                     <BytesNavbar />
                                     <div style={{backgroundColor: "rgb(95, 207, 128)", height: "calc(100% - 84px)"}}>
                                         <Course />
+                                    </div>
+                                </div>;
+                            case 'search':
+                                return <div style={{height: "100%"}}>
+                                    <BytesNavbar />
+                                    <div style={{backgroundColor: "rgb(95, 207, 128)", height: "calc(100% - 84px)"}}>
+                                        {/*<SearchResults/>*/}
                                     </div>
                                 </div>;
                             default:
