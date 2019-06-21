@@ -6,7 +6,7 @@ export class Video extends Component {
     render() {
         console.log(this.props.url);
         return <div>
-            <iframe style={{width: "100%", height: "-webkit-fill-available"}}
+            <iframe style={{width: "100%", height: "600px"}}
                     src={this.props.url}
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
             </iframe>
