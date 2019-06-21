@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Course} from "./components/Course";
@@ -14,16 +14,48 @@ const COURSE = {
 };
 
 
-const App = () => {
-  return (
-    <div className="App" style={{fontFamily: "GothamRounded-Medium", height: "100%"}}>
-        <BytesNavbar />
-        <div style={{ backgroundColor: "rgb(95, 207, 128)", height: "calc(100% - 84px)" }}>
-          <CreateCourse course={COURSE} />
-        </div>
+class App extends Component {
 
-    </div>
-  );
+    state = {
+        page: "create"
+    };
+
+    render() {
+        const page = this.state.page;
+        return (
+            <div className="App" style={{fontFamily: "GothamRounded-Medium", height: "100%"}}>
+                <div style={{height: "100%"}}>
+                    {(() => {
+                        switch (page) {
+                            case 'create':
+                                return <div style={{height: "100%"}}>
+                                    <BytesNavbar />
+                                    <div style={{backgroundColor: "rgb(95, 207, 128)", height: "calc(100% - 84px)"}}>
+                                        <CreateCourse course={COURSE}/>
+                                    </div>
+                                </div>;
+                            case 'landing':
+                                return <div style={{backgroundColor: "rgb(95, 207, 128)", height: "100%"}}>
+                                    <Landing onCreate={() => this.setState({page: "create"})}
+                                             onView={() => this.setState({page: "view"})}/>
+                                </div>;
+                            case 'view':
+                                return <div style={{height: "100%"}}>
+                                    <BytesNavbar />
+                                    <div style={{backgroundColor: "rgb(95, 207, 128)", height: "calc(100% - 84px)"}}>
+                                        <Course />
+                                    </div>
+                                </div>;
+                            default:
+                                return "";
+                        }
+                    })()}
+                </div>
+
+
+            </div>
+        );
+    }
 };
 
 
