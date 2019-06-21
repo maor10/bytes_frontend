@@ -7,10 +7,8 @@ import {DisplayIframe} from "./DisplayIframe";
 
 
 export class Course extends Component {
-
     state = {
         course: {
-            id: 1,
             steps: []
         },
         currentStep: {
@@ -32,7 +30,7 @@ export class Course extends Component {
     };
 
     componentDidMount() {
-        this.getCourse(this.state.course.id);
+        this.getCourse(this.props.courseId);
     }
 
     getCourse = (id) => {

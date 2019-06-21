@@ -18,7 +18,8 @@ class App extends Component {
 
     state = {
         page: "landing",
-        query: ''
+        query: '',
+        courseId: 1
     };
 
     onCreateCourse = () => {
@@ -30,6 +31,13 @@ class App extends Component {
     onSearch = () => {
         this.setState({
             page: "search"
+        });
+    };
+
+    onView = courseId => {
+        this.setState({
+            courseId: courseId,
+            page: "view"
         });
     };
 
@@ -55,7 +63,8 @@ class App extends Component {
                                 return <div style={{backgroundColor: "rgb(95, 207, 128)", height: "100%"}}>
                                     <Landing onCreate={() => this.setState({page: "create"})}
                                              onView={() => this.setState({page: "view"})}
-                                             onCreateCourse={this.onCreateCourse} onQueryChange={e => this.onQueryChange(e)}
+                                             onCreateCourse={this.onCreateCourse}
+                                             onQueryChange={e => this.onQueryChange(e)}
                                              onSearch={() => this.onSearch()}
                                     />
                                 </div>;
@@ -63,14 +72,14 @@ class App extends Component {
                                 return <div style={{height: "100%"}}>
                                     <BytesNavbar/>
                                     <div style={{backgroundColor: "rgb(95, 207, 128)", height: "calc(100% - 84px)"}}>
-                                        <Course/>
+                                        <Course courseId={this.state.courseId}/>
                                     </div>
                                 </div>;
                             case 'search':
                                 return <div style={{height: "100%"}}>
                                     <BytesNavbar/>
                                     <div style={{backgroundColor: "rgb(95, 207, 128)", height: "calc(100% - 84px)"}}>
-                                        <SearchResults query={this.state.query}/>
+                                        <SearchResults query={this.state.query} onView={courseId => this.onView(courseId)}/>
                                     </div>
                                 </div>;
                             default:

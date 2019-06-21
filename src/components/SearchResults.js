@@ -25,7 +25,7 @@ export class SearchResults extends Component {
                             <CardBody>
                                 <CardTitle>{result.num_students} enrolling</CardTitle>
                                 <CardText>This is the course's description</CardText>
-                                <Button color="primary">Enroll</Button>
+                                <Button color="primary" onClick={() => this.props.onView(result.id)}>Enroll</Button>
                             </CardBody>
                         </Card>
                     </div>
