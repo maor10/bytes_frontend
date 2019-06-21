@@ -12,10 +12,10 @@ export class AIframe extends Component {
     render() {
         return <div>
             <div>
+                <h3 style={{textAlign: "left", marginBottom: "20px"}}>Put a short description of what the user should do in his virtual environment</h3>
                 <FroalaEditorComponent tag='textarea'
                                        model={this.props.step.description}
                 onModelChange={(modelNew) => this.props.onChangeDescription(this.props.step, modelNew)}
-
                 />
             </div>
         </div>;

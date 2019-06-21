@@ -9,7 +9,7 @@ export class BytesNavbar extends Component {
 
 
     render() {
-        return <div style={{ marginLeft: "80px", marginRight: "80px", marginTop: "10px" }} >
+        return <div style={{backgroundColor: "white"}}> <div style={{ marginLeft: "80px", marginRight: "80px", marginTop: "10px" }} >
             <Navbar color="faded"  light >
                 <div style={{ marginLeft: "40px" }} >
                  <Logo />
@@ -18,6 +18,6 @@ export class BytesNavbar extends Component {
                     <img src={UserImage} style={{ width: "30px" }} />
                 </div>
             </Navbar>
-        </div>;
+        </div></div>;
     }
 }

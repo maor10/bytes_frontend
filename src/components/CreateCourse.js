@@ -5,6 +5,7 @@ import {Container, Button, Link} from 'react-floating-action-button';
 import {AddVideo} from "./AddVideo";
 import {get, post} from "../actions";
 import {AIframe} from "./AIframe";
+import {ExercizeEditor} from "./ExercizeEditor";
 
 
 export class CreateCourse extends Component {
@@ -30,6 +31,7 @@ export class CreateCourse extends Component {
 
     getCourse = (id) => {
         get(`/courses/${id}`).then((response) => {
+            console.log(response.data);
             this.setState({
                 course: {
                     id: id,
@@ -86,8 +88,8 @@ export class CreateCourse extends Component {
         const steps = this.state.course.steps.map(s => {
             if (s.index === step.index) {
                 newStep = {
+                    ...step,
                     video_url: url,
-                    ...step
                 };
                 return newStep;
             } else {
@@ -110,8 +112,8 @@ export class CreateCourse extends Component {
         const steps = this.state.course.steps.map(s => {
             if (s.index === step.index) {
                 newStep = {
+                    ...step,
                     video_url: url,
-                    ...step
                 };
                 return newStep;
             } else {
@@ -129,16 +131,46 @@ export class CreateCourse extends Component {
 
     onChangeDescription = (step, description) => {
        this.editStep(step.index, {description: description});
-      /*  let newStep = null;
+    };
+
+    onChangeExpectedOutput = (step, expectedOutput) => {
+        this.editStep(step.index, {expected_stdout: expectedOutput});
+        let newStep = null;
+        console.log("started");
         const steps = this.state.course.steps.map(s => {
             if (s.index === step.index) {
+                console.log("here");
                 newStep = {
-                    description: description,
-                    ...step
+                    ...step,
+                    expected_stdout: expectedOutput,
                 };
                 return newStep;
             } else {
-                return step;
+                return step
+            }
+        });
+        console.log(newStep);
+        this.setState({
+            course: {
+                steps: steps,
+                ...this.state.course
+            },
+            currentStep: newStep
+        })
+    } ;
+
+    onChangeBoilerplate = (step, boilerplate) => {
+        this.editStep(step.index, {boilerplate: boilerplate});
+        let newStep = null;
+        const steps = this.state.course.steps.map(s => {
+            if (s.index === step.index) {
+                newStep = {
+                    ...step,
+                    boilerplate: boilerplate,
+                };
+                return newStep;
+            } else {
+                return step
             }
         });
         this.setState({
@@ -147,8 +179,9 @@ export class CreateCourse extends Component {
                 ...this.state.course
             },
             currentStep: newStep
-        })*/
-    };
+        })
+    } ;
+
 
     onSelectStep = (step) => {
         this.setState({
@@ -173,10 +206,11 @@ export class CreateCourse extends Component {
                                 To get started, click on the plus button to add a lesson to your course</h1>
                         </div>
                     </div> : <div>
-                    <Timeline editable={true} steps={this.state.course.steps}
-                              onChangeName={this.handleChangeName} onSelectStep={this.onSelectStep}/>
+                    <Timeline currentStep={this.state.currentStep} editable={true} steps={this.state.course.steps}
+                              onChangeName={this.handleChangeName} onSelectStep={this.onSelectStep}
+                    />
                     <Card style={{
-                        backgroundColor: "white", height: "800px", width: "70%", margin: "100px auto", color: "black",
+                        backgroundColor: "white", width: "70%", margin: "100px auto", color: "black",
 
                         border: "0px"
                     }}>
@@ -189,7 +223,11 @@ export class CreateCourse extends Component {
                                         {(() => {
                                             switch (this.state.currentStep.type) {
                                                 case 'exercise':
-                                                    return <div></div>;
+                                                    return <ExercizeEditor step={this.state.currentStep}
+                                                                           onChangeDescription={this.onChangeDescription}
+                                                                           onChangeExpectedOutput={this.onChangeExpectedOutput}
+                                                                           onChangeBoilerplate={this.onChangeBoilerplate}
+                                                    />;
                                                 case 'video':
                                                     return <AddVideo step={this.state.currentStep}
                                                                      onChangeUrl={this.onChangeVideoUrl}
@@ -223,7 +261,7 @@ export class CreateCourse extends Component {
                         className="fab-item btn btn-link btn-lg text-white"/>
 
                     <Button
-                        onClick={this.addExcersize}
+                        onClick={() => this.addStep("exercise")}
                         tooltip="Add exercise"
                         icon="fa fa-pencil-square"
                         styles={{backgroundColor: "orange", color: "red"}}

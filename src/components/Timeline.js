@@ -12,7 +12,6 @@ export class Timeline extends Component {
     };
 
     render() {
-        console.log(this.props.steps);
         return <div style={{marginTop: "50px"}}>
             <div style={{
                 width: "100%", backgroundColor: "rgb(58, 193, 98)", height: "2px",
@@ -28,13 +27,13 @@ export class Timeline extends Component {
                             <div style={{
                                 color: "white",
                                 marginTop: "5px",
-                                fontSize: i === 0 ? "20pt" : "10pt"
+                                fontSize: step === this.props.currentStep ? "20pt" : "10pt"
                             }}>
                                 {
                                     this.props.editable ?
-                                        <Input value={step.text} placeholder="Step name here" onChange={
+                                        <div>{i + 1} <Input value={step.text} placeholder="Step name here" onChange={
                                             (e) => this.props.onChangeName(i, step.index, e.target.value)
-                                        } />:
+                                        } /></div>:
                                         step.text
                                 }
                             </div>

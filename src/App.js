@@ -30,7 +30,7 @@ class App extends Component {
         const page = this.state.page;
         return (
             <div className="App" style={{fontFamily: "GothamRounded-Medium", height: "100%"}}>
-                <div style={{height: "100%"}}>
+                <div style={{height: "100%", backgroundColor: "rgb(95, 207, 128)"}}>
                     {(() => {
                         switch (page) {
                             case 'create':
